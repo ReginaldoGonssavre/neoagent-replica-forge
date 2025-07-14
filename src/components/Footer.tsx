@@ -1,5 +1,6 @@
+
 import { Button } from "@/components/ui/button";
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Zap, Atom } from "lucide-react";
 
 export const Footer = () => {
   const footerSections = [
@@ -8,7 +9,7 @@ export const Footer = () => {
       links: [
         { name: "Características", href: "#" },
         { name: "Integrações", href: "#" },
-        { name: "API", href: "#" },
+        { name: "API Quântica", href: "#" },
         { name: "Documentação", href: "#" }
       ]
     },
@@ -33,33 +34,57 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-white">
-      <div className="container mx-auto px-6 py-16">
+    <footer className="relative bg-gradient-subtle border-t border-white/10">
+      {/* Quantum Grid Background */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="w-full h-full" 
+             style={{
+               backgroundImage: `
+                 linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+                 linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)
+               `,
+               backgroundSize: '30px 30px'
+             }} 
+        />
+      </div>
+
+      <div className="relative container mx-auto px-6 py-16">
         {/* Top Section */}
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-primary font-bold text-lg">N</span>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="relative">
+                <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-quantum">
+                  <Zap className="text-white w-6 h-6" />
+                </div>
+                <div className="absolute inset-0 w-10 h-10 bg-gradient-primary rounded-xl opacity-30 animate-ping"></div>
               </div>
-              <span className="text-xl font-bold">NeoAgent</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold bg-gradient-to-r from-white via-primary-glow to-quantum-cyan bg-clip-text text-transparent">
+                  Ravian
+                </span>
+                <span className="text-sm text-primary-glow font-medium -mt-1">
+                  QuantumAi
+                </span>
+              </div>
             </div>
-            <p className="text-white/80 mb-6 max-w-md">
-              A plataforma de automação inteligente que transforma a maneira 
-              como sua empresa gerencia processos e fluxos de trabalho.
+            <p className="text-white/80 mb-6 max-w-md leading-relaxed">
+              A plataforma de automação quântica que transforma a maneira 
+              como sua empresa processa informações e gerencia fluxos de trabalho 
+              com tecnologia do futuro.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-primary-glow hover:bg-white/5 transition-all duration-300">
                 <Github className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-primary-glow hover:bg-white/5 transition-all duration-300">
                 <Twitter className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-primary-glow hover:bg-white/5 transition-all duration-300">
                 <Linkedin className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-primary-glow hover:bg-white/5 transition-all duration-300">
                 <Mail className="w-5 h-5" />
               </Button>
             </div>
@@ -68,13 +93,13 @@ export const Footer = () => {
           {/* Footer Links */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold mb-4">{section.title}</h3>
+              <h3 className="font-semibold mb-4 text-primary-glow">{section.title}</h3>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-white/80 hover:text-white transition-colors"
+                      className="text-white/70 hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block"
                     >
                       {link.name}
                     </a>
@@ -86,19 +111,20 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/20">
+        <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-white/60 text-sm">
-              © 2024 NeoAgent. Todos os direitos reservados.
+            <div className="text-white/60 text-sm flex items-center space-x-2">
+              <Atom className="w-4 h-4 text-primary-glow" />
+              <span>© 2024 Ravian QuantumAi. Todos os direitos reservados.</span>
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-white/60 hover:text-primary-glow text-sm transition-colors duration-300">
                 Privacidade
               </a>
-              <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-white/60 hover:text-primary-glow text-sm transition-colors duration-300">
                 Termos
               </a>
-              <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-white/60 hover:text-primary-glow text-sm transition-colors duration-300">
                 Cookies
               </a>
             </div>
