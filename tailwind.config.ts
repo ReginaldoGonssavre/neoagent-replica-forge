@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -68,7 +67,7 @@ export default {
 					blue: 'hsl(220 91% 15%)',
 					purple: 'hsl(261 83% 58%)',
 					cyan: 'hsl(180 100% 50%)',
-					pink: 'hsl(320 100% 75%)'
+					white: 'hsl(0 0% 100%)'
 				}
 			},
 			backgroundImage: {

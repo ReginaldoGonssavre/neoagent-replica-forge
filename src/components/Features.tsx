@@ -1,38 +1,39 @@
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Zap, Clock, Shield, BarChart3, Workflow, Settings } from "lucide-react";
+import { Bot, Cpu, Database, Shield, Zap, Settings, Code, BarChart3 } from "lucide-react";
 
 export const Features = () => {
   const features = [
     {
-      icon: Zap,
-      title: "Configuração em 60 segundos",
-      description: "Configure fluxos de trabalho poderosos sem código. Comece com nossos modelos e personalize usando linguagem natural."
+      icon: Bot,
+      title: "Agente IA Conversacional",
+      description: "Interface de chat inteligente com processamento de linguagem natural avançado para interações empresariais."
     },
     {
-      icon: Clock,
-      title: "Automação 24/7",
-      description: "Nunca mais perca tickets ou processos importantes. Nossa IA trabalha continuamente para manter tudo funcionando."
+      icon: Cpu,
+      title: "Processamento RAG",
+      description: "Retrieval-Augmented Generation para respostas precisas baseadas em sua base de conhecimento."
+    },
+    {
+      icon: Database,
+      title: "Integração de Dados",
+      description: "Conecta-se a bancos de dados, APIs e sistemas existentes para análise em tempo real."
     },
     {
       icon: Shield,
       title: "Segurança Empresarial",
-      description: "Proteção de dados de nível empresarial com criptografia avançada e controles de acesso granulares."
+      description: "Criptografia avançada, controle de acesso e conformidade com padrões de segurança."
+    },
+    {
+      icon: Code,
+      title: "API Robusta",
+      description: "RESTful API completa para integração com sistemas existentes e desenvolvimento personalizado."
     },
     {
       icon: BarChart3,
       title: "Analytics Avançados",
-      description: "Dashboards em tempo real com insights acionáveis para otimizar continuamente seus processos."
-    },
-    {
-      icon: Workflow,
-      title: "Integrações Nativas",
-      description: "Conecte-se facilmente com suas ferramentas existentes. Suporte para 100+ integrações populares."
-    },
-    {
-      icon: Settings,
-      title: "Personalização Total",
-      description: "Adapte a plataforma às suas necessidades específicas com configurações flexíveis e APIs robustas."
+      description: "Dashboard com métricas detalhadas, insights de performance e relatórios executivos."
     }
   ];
 
@@ -41,15 +42,14 @@ export const Features = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-            Configure fluxos de trabalho em menos de{" "}
+            Tecnologia{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              60 segundos
+              Quântica Real
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Uma nova geração de plataforma de automação que permite criar fluxos 
-            de trabalho poderosos sem código. Comece com nossos modelos e personalize 
-            usando linguagem natural.
+            Agente de IA desenvolvido com arquitetura avançada para aplicações 
+            empresariais críticas. Tecnologia comprovada e testada em produção.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export const Features = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="p-8 hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border-0 bg-white/50 backdrop-blur-sm"
+              className="p-8 hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border-0 bg-white/50 backdrop-blur-sm group"
             >
               <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <feature.icon className="w-8 h-8 text-white" />
@@ -75,11 +75,16 @@ export const Features = () => {
         </div>
 
         <div className="text-center">
-          <Button variant="cta" size="lg" className="text-lg px-8 py-6">
-            Experimentar Gratuitamente
+          <Button variant="cta" size="lg" className="text-lg px-8 py-6 mr-4">
+            <Zap className="w-5 h-5 mr-2" />
+            Teste o Agente
+          </Button>
+          <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Code className="w-5 h-5 mr-2" />
+            Documentação API
           </Button>
           <p className="mt-4 text-sm text-muted-foreground">
-            Sem cartão de crédito • Setup em 2 minutos • Suporte 24/7
+            Teste gratuito de 14 dias • API completa • Suporte técnico incluído
           </p>
         </div>
       </div>

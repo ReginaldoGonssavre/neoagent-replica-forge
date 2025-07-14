@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,19 +18,19 @@ All colors MUST be HSL.
     --quantum-blue: 220 91% 15%; /* Deep space blue #0a1628 */
     --quantum-purple: 261 83% 58%; /* Quantum purple */
     --quantum-cyan: 180 100% 50%; /* Neon cyan #00ffff */
-    --quantum-pink: 320 100% 75%; /* Neon pink #ff80d4 */
+    --quantum-white: 0 0% 100%; /* Pure white replacing pink */
     
     /* Galaxy gradients */
     --gradient-primary: linear-gradient(135deg, hsl(261 83% 58%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 91% 15%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(320 100% 75%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(220 91% 15%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(0 0% 100%) 100%);
     --gradient-galaxy: radial-gradient(ellipse at center, hsl(261 83% 58% / 0.3) 0%, hsl(220 91% 15%) 50%, hsl(220 91% 8%) 100%);
-    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(320 100% 75% / 0.1), hsl(261 83% 58% / 0.2));
+    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(0 0% 100% / 0.1), hsl(261 83% 58% / 0.2));
     --gradient-subtle: linear-gradient(180deg, hsl(220 91% 15%) 0%, hsl(220 91% 8%) 100%);
     
     /* Quantum shadows and glows */
     --shadow-elegant: 0 10px 30px -10px hsl(261 83% 58% / 0.4);
     --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.6);
-    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.3), 0 0 40px hsl(320 100% 75% / 0.2);
+    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.3), 0 0 40px hsl(0 0% 100% / 0.2);
     --shadow-xl: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
     
     /* Animations */
@@ -89,14 +88,14 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 98%;
     
     --gradient-primary: linear-gradient(135deg, hsl(261 83% 58%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 91% 8%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(320 100% 75%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(220 91% 8%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(0 0% 100%) 100%);
     --gradient-galaxy: radial-gradient(ellipse at center, hsl(261 83% 58% / 0.3) 0%, hsl(220 91% 15%) 50%, hsl(220 91% 8%) 100%);
-    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(320 100% 75% / 0.1), hsl(261 83% 58% / 0.2));
+    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(0 0% 100% / 0.1), hsl(261 83% 58% / 0.2));
     --gradient-subtle: linear-gradient(180deg, hsl(220 91% 15%) 0%, hsl(220 91% 8%) 100%);
     
     --shadow-elegant: 0 10px 30px -10px hsl(261 83% 58% / 0.5);
     --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.7);
-    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.4), 0 0 40px hsl(320 100% 75% / 0.3);
+    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.4), 0 0 40px hsl(0 0% 100% / 0.3);
 
     --muted: 220 91% 15%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -160,8 +159,8 @@ All colors MUST be HSL.
   }
 
   .quantum-particle:nth-child(3n) {
-    background: hsl(320 100% 75%);
-    box-shadow: 0 0 6px hsl(320 100% 75%);
+    background: hsl(0 0% 100%);
+    box-shadow: 0 0 6px hsl(0 0% 100%);
     animation-delay: -4s;
     animation-duration: 8s;
   }

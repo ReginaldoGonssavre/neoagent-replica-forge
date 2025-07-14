@@ -1,15 +1,15 @@
 
 import { Button } from "@/components/ui/button";
-import { Github, Twitter, Linkedin, Mail, Zap, Atom } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Zap, Code } from "lucide-react";
 
 export const Footer = () => {
   const footerSections = [
     {
       title: "Produto",
       links: [
-        { name: "Características", href: "#" },
+        { name: "Agente IA", href: "#" },
+        { name: "API", href: "#" },
         { name: "Integrações", href: "#" },
-        { name: "API Quântica", href: "#" },
         { name: "Documentação", href: "#" }
       ]
     },
@@ -17,18 +17,27 @@ export const Footer = () => {
       title: "Empresa",
       links: [
         { name: "Sobre", href: "#" },
-        { name: "Blog", href: "#" },
+        { name: "Blog Técnico", href: "#" },
         { name: "Carreiras", href: "#" },
-        { name: "Imprensa", href: "#" }
+        { name: "Contato", href: "#" }
       ]
     },
     {
       title: "Suporte",
       links: [
         { name: "Central de Ajuda", href: "#" },
-        { name: "Contato", href: "#" },
-        { name: "Status", href: "#" },
+        { name: "Status do Sistema", href: "#" },
+        { name: "Relatórios de Bugs", href: "#" },
         { name: "Comunidade", href: "#" }
+      ]
+    },
+    {
+      title: "Desenvolvedores",
+      links: [
+        { name: "API Docs", href: "#" },
+        { name: "SDKs", href: "#" },
+        { name: "Webhooks", href: "#" },
+        { name: "Changelog", href: "#" }
       ]
     }
   ];
@@ -50,7 +59,7 @@ export const Footer = () => {
 
       <div className="relative container mx-auto px-6 py-16">
         {/* Top Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
@@ -70,9 +79,9 @@ export const Footer = () => {
               </div>
             </div>
             <p className="text-white/80 mb-6 max-w-md leading-relaxed">
-              A plataforma de automação quântica que transforma a maneira 
-              como sua empresa processa informações e gerencia fluxos de trabalho 
-              com tecnologia do futuro.
+              Agente de inteligência artificial profissional para automação 
+              empresarial. Tecnologia comprovada, suporte especializado e 
+              integração completa para seu negócio.
             </p>
             <div className="flex space-x-4">
               <Button variant="ghost" size="sm" className="text-white/70 hover:text-primary-glow hover:bg-white/5 transition-all duration-300">
@@ -114,7 +123,7 @@ export const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-white/60 text-sm flex items-center space-x-2">
-              <Atom className="w-4 h-4 text-primary-glow" />
+              <Code className="w-4 h-4 text-primary-glow" />
               <span>© 2024 Ravian QuantumAi. Todos os direitos reservados.</span>
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
@@ -122,10 +131,10 @@ export const Footer = () => {
                 Privacidade
               </a>
               <a href="#" className="text-white/60 hover:text-primary-glow text-sm transition-colors duration-300">
-                Termos
+                Termos de Uso
               </a>
               <a href="#" className="text-white/60 hover:text-primary-glow text-sm transition-colors duration-300">
-                Cookies
+                SLA
               </a>
             </div>
           </div>

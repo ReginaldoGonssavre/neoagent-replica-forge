@@ -1,15 +1,16 @@
 
 import { Button } from "@/components/ui/button";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, Zap, LogIn, UserPlus, Settings, Crown } from "lucide-react";
 import { useState } from "react";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Características", href: "#features" },
-    { name: "Integrações", href: "#integrations" },
-    { name: "Preços", href: "#pricing" },
+    { name: "Recursos", href: "#features" },
+    { name: "Planos", href: "#pricing" },
+    { name: "API", href: "#api" },
+    { name: "Documentação", href: "#docs" },
     { name: "Suporte", href: "#support" }
   ];
 
@@ -50,12 +51,21 @@ export const Header = () => {
           </nav>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
-              Entrar
+              <LogIn className="w-4 h-4 mr-2" />
+              Login
+            </Button>
+            <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
+              <UserPlus className="w-4 h-4 mr-2" />
+              Cadastrar
             </Button>
             <Button className="bg-gradient-primary hover:shadow-quantum transition-all duration-300 quantum-glow">
-              Começar Grátis
+              <Crown className="w-4 h-4 mr-2" />
+              Teste Grátis
+            </Button>
+            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
+              <Settings className="w-4 h-4" />
             </Button>
           </div>
 
@@ -88,10 +98,16 @@ export const Header = () => {
               ))}
               <div className="flex flex-col space-y-2 pt-4 px-4">
                 <Button variant="ghost" className="justify-start text-white/80 hover:text-white hover:bg-white/10">
-                  Entrar
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+                <Button variant="ghost" className="justify-start text-white/80 hover:text-white hover:bg-white/10">
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Cadastrar
                 </Button>
                 <Button className="justify-start bg-gradient-primary hover:shadow-quantum">
-                  Começar Grátis
+                  <Crown className="w-4 h-4 mr-2" />
+                  Teste Grátis
                 </Button>
               </div>
             </nav>
