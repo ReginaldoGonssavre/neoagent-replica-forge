@@ -11,17 +11,32 @@ All colors MUST be HSL.
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
+    /* Brand colors inspired by NeoAgent */
+    --primary: 204 100% 59%; /* Blue #0ea5e9 */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 94% 68%; /* Lighter blue #3b82f6 */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(204 100% 59%), hsl(213 94% 68%));
+    --gradient-hero: linear-gradient(135deg, hsl(204 100% 59%) 0%, hsl(213 94% 68%) 50%, hsl(262 83% 58%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 96%) 100%);
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(204 100% 59% / 0.3);
+    --shadow-glow: 0 0 40px hsl(213 94% 68% / 0.4);
+    --shadow-xl: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -65,11 +80,19 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 204 100% 59%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 94% 68%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(204 100% 59%), hsl(213 94% 68%));
+    --gradient-hero: linear-gradient(135deg, hsl(204 100% 59%) 0%, hsl(213 94% 68%) 50%, hsl(262 83% 58%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(217.2 32.6% 17.5%) 0%, hsl(222.2 84% 4.9%) 100%);
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(204 100% 59% / 0.4);
+    --shadow-glow: 0 0 40px hsl(213 94% 68% / 0.5);
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
