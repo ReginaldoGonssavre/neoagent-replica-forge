@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Menu, X, Zap, LogIn, UserPlus, Settings, Crown } from "lucide-react";
+import { Menu, X, Zap, LogIn, UserPlus, Settings, Crown, Shield } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -77,6 +77,14 @@ export const Header = () => {
               <Crown className="w-4 h-4 mr-2" />
               Teste Grátis
             </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white/70 hover:text-white"
+              onClick={() => navigate("/admin")}
+            >
+              <Shield className="w-4 h-4" />
+            </Button>
             <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
               <Settings className="w-4 h-4" />
             </Button>
@@ -141,6 +149,17 @@ export const Header = () => {
                 >
                   <Crown className="w-4 h-4 mr-2" />
                   Teste Grátis
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  className="justify-start text-white/80 hover:text-white hover:bg-white/10"
+                  onClick={() => {
+                    navigate("/admin");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <Shield className="w-4 h-4 mr-2" />
+                  Admin
                 </Button>
               </div>
             </nav>
