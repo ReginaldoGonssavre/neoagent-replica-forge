@@ -2,9 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, Zap, LogIn, UserPlus, Settings, Crown } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
     { name: "Recursos", href: "#features" },
@@ -19,7 +21,7 @@ export const Header = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo Quantum */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate("/")}>
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-quantum animate-quantum-pulse">
                 <Zap className="text-white w-6 h-6" />
@@ -52,15 +54,26 @@ export const Header = () => {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
+            <Button 
+              variant="ghost" 
+              className="text-white/80 hover:text-white hover:bg-white/10"
+              onClick={() => navigate("/auth")}
+            >
               <LogIn className="w-4 h-4 mr-2" />
               Login
             </Button>
-            <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
+            <Button 
+              variant="ghost" 
+              className="text-white/80 hover:text-white hover:bg-white/10"
+              onClick={() => navigate("/auth")}
+            >
               <UserPlus className="w-4 h-4 mr-2" />
               Cadastrar
             </Button>
-            <Button className="bg-gradient-primary hover:shadow-quantum transition-all duration-300 quantum-glow">
+            <Button 
+              className="bg-gradient-primary hover:shadow-quantum transition-all duration-300 quantum-glow"
+              onClick={() => navigate("/auth")}
+            >
               <Crown className="w-4 h-4 mr-2" />
               Teste Grátis
             </Button>
@@ -97,15 +110,35 @@ export const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4 px-4">
-                <Button variant="ghost" className="justify-start text-white/80 hover:text-white hover:bg-white/10">
+                <Button 
+                  variant="ghost" 
+                  className="justify-start text-white/80 hover:text-white hover:bg-white/10"
+                  onClick={() => {
+                    navigate("/auth");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <LogIn className="w-4 h-4 mr-2" />
                   Login
                 </Button>
-                <Button variant="ghost" className="justify-start text-white/80 hover:text-white hover:bg-white/10">
+                <Button 
+                  variant="ghost" 
+                  className="justify-start text-white/80 hover:text-white hover:bg-white/10"
+                  onClick={() => {
+                    navigate("/auth");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <UserPlus className="w-4 h-4 mr-2" />
                   Cadastrar
                 </Button>
-                <Button className="justify-start bg-gradient-primary hover:shadow-quantum">
+                <Button 
+                  className="justify-start bg-gradient-primary hover:shadow-quantum"
+                  onClick={() => {
+                    navigate("/auth");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <Crown className="w-4 h-4 mr-2" />
                   Teste Grátis
                 </Button>

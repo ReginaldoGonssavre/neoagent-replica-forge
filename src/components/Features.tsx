@@ -2,8 +2,11 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bot, Cpu, Database, Shield, Zap, Settings, Code, BarChart3 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Features = () => {
+  const navigate = useNavigate();
+
   const features = [
     {
       icon: Bot,
@@ -75,11 +78,21 @@ export const Features = () => {
         </div>
 
         <div className="text-center">
-          <Button variant="cta" size="lg" className="text-lg px-8 py-6 mr-4">
+          <Button 
+            variant="cta" 
+            size="lg" 
+            className="text-lg px-8 py-6 mr-4"
+            onClick={() => navigate("/auth")}
+          >
             <Zap className="w-5 h-5 mr-2" />
             Teste o Agente
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-6"
+            onClick={() => navigate("/auth")}
+          >
             <Code className="w-5 h-5 mr-2" />
             Documentação API
           </Button>
