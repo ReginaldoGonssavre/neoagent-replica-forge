@@ -57,13 +57,21 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
         .order('created_at', { ascending: true });
 
       if (error) {
+        console.error('Erro ao carregar mensagens:', error);
         toast.error('Erro ao carregar mensagens');
         return;
       }
 
-      setMessages(data || []);
+      // Garantir que o role seja do tipo correto
+      const typedMessages: Message[] = (data || []).map(msg => ({
+        ...msg,
+        role: msg.role as 'user' | 'assistant'
+      }));
+
+      setMessages(typedMessages);
     } catch (error) {
       console.error('Erro ao buscar mensagens:', error);
+      toast.error('Erro inesperado ao carregar mensagens');
     }
   };
 
@@ -77,8 +85,14 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
         .eq('id', conversationId)
         .single();
 
-      if (error) return;
-      setConversationTitle(data.title);
+      if (error) {
+        console.error('Erro ao buscar título da conversa:', error);
+        return;
+      }
+      
+      if (data) {
+        setConversationTitle(data.title);
+      }
     } catch (error) {
       console.error('Erro ao buscar título da conversa:', error);
     }
@@ -100,6 +114,7 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
         .single();
 
       if (error) {
+        console.error('Erro ao criar conversa:', error);
         toast.error('Erro ao criar conversa');
         return null;
       }
@@ -107,6 +122,7 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
       onConversationChange(data.id);
       return data.id;
     } catch (error) {
+      console.error('Erro inesperado ao criar conversa:', error);
       toast.error('Erro inesperado ao criar conversa');
       return null;
     }
@@ -183,11 +199,18 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
         .single();
 
       if (userError) {
+        console.error('Erro ao enviar mensagem:', userError);
         toast.error('Erro ao enviar mensagem');
         return;
       }
 
-      setMessages(prev => [...prev, userMessage]);
+      // Garantir tipo correto para a mensagem do usuário
+      const typedUserMessage: Message = {
+        ...userMessage,
+        role: 'user' as const
+      };
+
+      setMessages(prev => [...prev, typedUserMessage]);
 
       // Simular resposta da IA
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -208,11 +231,18 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
         .single();
 
       if (aiError) {
+        console.error('Erro na resposta da IA:', aiError);
         toast.error('Erro na resposta da IA');
         return;
       }
 
-      setMessages(prev => [...prev, aiMessage]);
+      // Garantir tipo correto para a mensagem da IA
+      const typedAIMessage: Message = {
+        ...aiMessage,
+        role: 'assistant' as const
+      };
+
+      setMessages(prev => [...prev, typedAIMessage]);
 
       // Atualizar título da conversa se for a primeira mensagem
       if (messages.length === 0) {
@@ -231,6 +261,7 @@ export const ChatInterface = ({ userId, conversationId, onConversationChange }: 
       await updateApiUsage();
 
     } catch (error) {
+      console.error('Erro inesperado:', error);
       toast.error('Erro inesperado');
     } finally {
       setLoading(false);

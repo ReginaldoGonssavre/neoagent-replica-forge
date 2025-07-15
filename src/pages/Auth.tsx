@@ -19,10 +19,14 @@ export default function Auth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { data: { session } } = supabase.auth.getSession();
-    if (session) {
-      navigate("/dashboard");
-    }
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate("/dashboard");
+      }
+    };
+    
+    checkSession();
   }, [navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -42,11 +46,13 @@ export default function Auth() {
       });
 
       if (error) {
+        console.error('Erro no cadastro:', error);
         toast.error(`Erro no cadastro: ${error.message}`);
       } else {
-        toast.success("Cadastro realizado! Verifique seu email.");
+        toast.success("Cadastro realizado! Verifique seu email para confirmação.");
       }
     } catch (error) {
+      console.error('Erro inesperado no cadastro:', error);
       toast.error("Erro inesperado no cadastro");
     } finally {
       setLoading(false);
@@ -64,12 +70,14 @@ export default function Auth() {
       });
 
       if (error) {
+        console.error('Erro no login:', error);
         toast.error(`Erro no login: ${error.message}`);
       } else {
         toast.success("Login realizado com sucesso!");
         navigate("/dashboard");
       }
     } catch (error) {
+      console.error('Erro inesperado no login:', error);
       toast.error("Erro inesperado no login");
     } finally {
       setLoading(false);

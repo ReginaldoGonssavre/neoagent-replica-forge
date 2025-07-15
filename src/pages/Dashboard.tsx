@@ -18,19 +18,26 @@ export default function Dashboard() {
 
   useEffect(() => {
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        setUser(session.user);
-      } else {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUser(session.user);
+        } else {
+          navigate("/auth");
+        }
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error);
         navigate("/auth");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     getSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Auth state changed:', event, session);
         if (event === 'SIGNED_OUT' || !session) {
           navigate("/auth");
         } else if (session?.user) {
@@ -48,6 +55,7 @@ export default function Dashboard() {
       toast.success("Logout realizado com sucesso!");
       navigate("/auth");
     } catch (error) {
+      console.error('Erro ao fazer logout:', error);
       toast.error("Erro ao fazer logout");
     }
   };

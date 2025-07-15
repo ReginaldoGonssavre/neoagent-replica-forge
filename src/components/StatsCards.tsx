@@ -41,7 +41,7 @@ export const StatsCards = ({ userId }: StatsCardsProps) => {
         .select('requests_count')
         .eq('user_id', userId)
         .eq('date', today)
-        .single();
+        .maybeSingle();
 
       const todayRequests = apiUsage?.requests_count || 0;
       const remainingRequests = Math.max(0, 50 - todayRequests); // Limite free: 50 por dia

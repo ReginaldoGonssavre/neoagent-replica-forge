@@ -47,12 +47,14 @@ export const DashboardSidebar = ({
         .order('updated_at', { ascending: false });
 
       if (error) {
+        console.error('Erro ao carregar conversas:', error);
         toast.error('Erro ao carregar conversas');
         return;
       }
 
       setConversations(data || []);
     } catch (error) {
+      console.error('Erro inesperado ao carregar conversas:', error);
       toast.error('Erro inesperado ao carregar conversas');
     } finally {
       setLoading(false);
@@ -73,6 +75,7 @@ export const DashboardSidebar = ({
         .single();
 
       if (error) {
+        console.error('Erro ao criar nova conversa:', error);
         toast.error('Erro ao criar nova conversa');
         return;
       }
@@ -81,6 +84,7 @@ export const DashboardSidebar = ({
       onSelectConversation(data.id);
       toast.success('Nova conversa criada!');
     } catch (error) {
+      console.error('Erro inesperado ao criar conversa:', error);
       toast.error('Erro inesperado ao criar conversa');
     }
   };
@@ -93,6 +97,7 @@ export const DashboardSidebar = ({
         .eq('id', conversationId);
 
       if (error) {
+        console.error('Erro ao deletar conversa:', error);
         toast.error('Erro ao deletar conversa');
         return;
       }
@@ -103,6 +108,7 @@ export const DashboardSidebar = ({
       }
       toast.success('Conversa deletada!');
     } catch (error) {
+      console.error('Erro inesperado ao deletar conversa:', error);
       toast.error('Erro inesperado ao deletar conversa');
     }
   };
