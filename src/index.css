@@ -131,6 +131,8 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
     background: hsl(0 0% 100%);
     min-height: 100vh;
+    /* Remove any grid backgrounds */
+    background-image: none;
   }
 
   /* Remove quantum particle effects */
@@ -140,6 +142,34 @@ All colors MUST be HSL.
 
   .quantum-particle {
     display: none;
+  }
+
+  /* Remove any grid patterns */
+  .grid-bg {
+    display: none;
+  }
+
+  .grid-pattern {
+    display: none;
+  }
+
+  /* Ensure no grid lines on containers */
+  .container, 
+  .grid,
+  .grid-cols-1,
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .grid-cols-6 {
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* Remove borders from grid items */
+  .grid > * {
+    border: none !important;
+    outline: none !important;
   }
 }
 
@@ -182,4 +212,25 @@ All colors MUST be HSL.
   width: 100%;
   height: auto;
   max-width: 64px;
+}
+
+/* Clean card styles without borders */
+.card-clean {
+  background: hsl(0 0% 100%);
+  border: none;
+  box-shadow: var(--shadow-elegant);
+  border-radius: var(--radius);
+}
+
+/* Remove debug borders */
+* {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Ensure clean layout without grid lines */
+.no-grid * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
