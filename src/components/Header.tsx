@@ -10,11 +10,22 @@ export const Header = () => {
 
   const navItems = [
     { name: "Recursos", href: "#features" },
+    { name: "Agente IA", href: "/ai-agent", isRoute: true },
     { name: "Planos", href: "#pricing" },
     { name: "API", href: "#api" },
     { name: "Documentação", href: "#docs" },
     { name: "Suporte", href: "#support" }
   ];
+
+  const handleNavClick = (item: typeof navItems[0]) => {
+    if (item.isRoute) {
+      navigate(item.href);
+    } else {
+      // Para âncoras, apenas navegue normalmente
+      window.location.href = item.href;
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 w-full z-50 glass-morphism border-b border-white/10">
@@ -49,14 +60,14 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
+                onClick={() => handleNavClick(item)}
                 className="relative text-white/90 hover:text-white transition-all duration-300 font-medium group"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-glow to-quantum-cyan transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -116,14 +127,13 @@ export const Header = () => {
           <div className="md:hidden py-4 border-t border-white/10 glass-morphism">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="text-white/90 hover:text-white transition-colors font-medium px-4 py-2 hover:bg-white/5 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => handleNavClick(item)}
+                  className="text-left text-white/90 hover:text-white transition-colors font-medium px-4 py-2 hover:bg-white/5 rounded-lg"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4 px-4">
                 <Button 
