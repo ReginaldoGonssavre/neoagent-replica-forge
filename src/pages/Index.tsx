@@ -8,12 +8,12 @@ import { useEffect } from "react";
 
 const Index = () => {
   useEffect(() => {
-    // Ativar modo dark automaticamente para o tema quântico
-    document.documentElement.classList.add('dark');
+    // Remove dark mode for white theme
+    document.documentElement.classList.remove('dark');
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-galaxy">
+    <div className="min-h-screen bg-white">
       <Header />
       <Hero />
       <Stats />

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,30 +9,30 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 100%; /* White background */
     --foreground: 222.2 84% 4.9%;
 
-    /* Quantum Brand colors inspired by Ravian QuantumAi */
-    --primary: 261 83% 58%; /* Purple quantum #8b5cf6 */
+    /* Crystal Dark Blue Brand colors */
+    --primary: 220 91% 15%; /* Crystal dark blue */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 280 100% 70%; /* Bright purple glow #c77dff */
-    --quantum-blue: 220 91% 15%; /* Deep space blue #0a1628 */
+    --primary-glow: 220 91% 25%; /* Lighter crystal blue */
+    --quantum-blue: 220 91% 15%; /* Deep crystal blue */
     --quantum-purple: 261 83% 58%; /* Quantum purple */
-    --quantum-cyan: 180 100% 50%; /* Neon cyan #00ffff */
-    --quantum-white: 0 0% 100%; /* Pure white replacing pink */
+    --quantum-cyan: 180 100% 50%; /* Neon cyan */
+    --quantum-white: 0 0% 100%; /* Pure white */
     
-    /* Galaxy gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(261 83% 58%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 91% 15%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(0 0% 100%) 100%);
-    --gradient-galaxy: radial-gradient(ellipse at center, hsl(261 83% 58% / 0.3) 0%, hsl(220 91% 15%) 50%, hsl(220 91% 8%) 100%);
-    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(0 0% 100% / 0.1), hsl(261 83% 58% / 0.2));
-    --gradient-subtle: linear-gradient(180deg, hsl(220 91% 15%) 0%, hsl(220 91% 8%) 100%);
+    /* Clean gradients for white theme */
+    --gradient-primary: linear-gradient(135deg, hsl(220 91% 15%), hsl(220 91% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 91% 15%) 0%, hsl(220 91% 20%) 50%, hsl(220 91% 25%) 100%);
+    --gradient-galaxy: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-quantum: linear-gradient(45deg, hsl(220 91% 15% / 0.05), hsl(0 0% 100%), hsl(220 91% 15% / 0.03));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     
-    /* Quantum shadows and glows */
-    --shadow-elegant: 0 10px 30px -10px hsl(261 83% 58% / 0.4);
-    --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.6);
-    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.3), 0 0 40px hsl(0 0% 100% / 0.2);
-    --shadow-xl: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    /* Clean shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(220 91% 15% / 0.2);
+    --shadow-glow: 0 0 20px hsl(220 91% 15% / 0.3);
+    --shadow-quantum: 0 0 15px hsl(220 91% 15% / 0.2);
+    --shadow-xl: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -56,68 +57,68 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 220 91% 15%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 220 91% 15%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 220 91% 15%;
   }
 
   .dark {
-    --background: 220 91% 8%; /* Deep galaxy background */
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%; /* Keep white even in dark mode */
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 220 91% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 220 91% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 261 83% 58%;
+    --primary: 220 91% 15%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 280 100% 70%;
+    --primary-glow: 220 91% 25%;
 
-    --secondary: 220 91% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
     
-    --gradient-primary: linear-gradient(135deg, hsl(261 83% 58%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 91% 8%) 0%, hsl(261 83% 58%) 30%, hsl(280 100% 70%) 70%, hsl(0 0% 100%) 100%);
-    --gradient-galaxy: radial-gradient(ellipse at center, hsl(261 83% 58% / 0.3) 0%, hsl(220 91% 15%) 50%, hsl(220 91% 8%) 100%);
-    --gradient-quantum: linear-gradient(45deg, hsl(180 100% 50% / 0.1), hsl(0 0% 100% / 0.1), hsl(261 83% 58% / 0.2));
-    --gradient-subtle: linear-gradient(180deg, hsl(220 91% 15%) 0%, hsl(220 91% 8%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(220 91% 15%), hsl(220 91% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 91% 15%) 0%, hsl(220 91% 20%) 50%, hsl(220 91% 25%) 100%);
+    --gradient-galaxy: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-quantum: linear-gradient(45deg, hsl(220 91% 15% / 0.05), hsl(0 0% 100%), hsl(220 91% 15% / 0.03));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     
-    --shadow-elegant: 0 10px 30px -10px hsl(261 83% 58% / 0.5);
-    --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.7);
-    --shadow-quantum: 0 0 20px hsl(180 100% 50% / 0.4), 0 0 40px hsl(0 0% 100% / 0.3);
+    --shadow-elegant: 0 10px 30px -10px hsl(220 91% 15% / 0.3);
+    --shadow-glow: 0 0 20px hsl(220 91% 15% / 0.4);
+    --shadow-quantum: 0 0 15px hsl(220 91% 15% / 0.3);
 
-    --muted: 220 91% 15%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 220 91% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 91% 15%;
-    --input: 220 91% 15%;
-    --ring: 261 83% 58%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 220 91% 15%;
     
-    --sidebar-background: 220 91% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 261 83% 58%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 220 91% 15%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 91% 15%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 220 91% 15%;
-    --sidebar-ring: 261 83% 58%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 220 91% 15%;
   }
 }
 
@@ -128,51 +129,27 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: var(--gradient-galaxy);
+    background: hsl(0 0% 100%);
     min-height: 100vh;
   }
 
-  /* Quantum particle effects */
+  /* Remove quantum particle effects */
   .quantum-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
+    display: none;
   }
 
   .quantum-particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: hsl(var(--primary-glow));
-    border-radius: 50%;
-    animation: float 6s ease-in-out infinite;
-    box-shadow: 0 0 6px hsl(var(--primary-glow));
-  }
-
-  .quantum-particle:nth-child(2n) {
-    background: hsl(180 100% 50%);
-    box-shadow: 0 0 6px hsl(180 100% 50%);
-    animation-delay: -2s;
-    animation-duration: 4s;
-  }
-
-  .quantum-particle:nth-child(3n) {
-    background: hsl(0 0% 100%);
-    box-shadow: 0 0 6px hsl(0 0% 100%);
-    animation-delay: -4s;
-    animation-duration: 8s;
+    display: none;
   }
 }
 
-/* Fluorescent glow effects */
+/* Clean glow effects for white theme */
 @keyframes quantum-glow {
   0%, 100% { 
-    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.5);
+    box-shadow: 0 0 10px hsl(220 91% 15% / 0.3);
   }
   50% { 
-    box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.8), 0 0 60px hsl(var(--primary-glow) / 0.3);
+    box-shadow: 0 0 20px hsl(220 91% 15% / 0.5);
   }
 }
 
@@ -180,9 +157,29 @@ All colors MUST be HSL.
   animation: quantum-glow 2s ease-in-out infinite;
 }
 
-/* Glass morphism for navbar */
+/* Crystal glass navbar */
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.05);
+  background: hsl(220 91% 15% / 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid hsl(220 91% 25% / 0.3);
+}
+
+/* Quantum icon styles */
+.quantum-icon {
+  filter: drop-shadow(0 0 8px hsl(220 91% 15% / 0.4));
+  transition: all 0.3s ease;
+}
+
+.quantum-icon:hover {
+  filter: drop-shadow(0 0 12px hsl(220 91% 15% / 0.6));
+  transform: scale(1.05);
+}
+
+.quantum-icon-4k {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  width: 100%;
+  height: auto;
+  max-width: 64px;
 }
