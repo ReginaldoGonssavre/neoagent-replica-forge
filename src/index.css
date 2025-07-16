@@ -55,7 +55,7 @@ All colors MUST be HSL.
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
+    --border: transparent; /* Remove all borders */
     --input: 214.3 31.8% 91.4%;
     --ring: 220 91% 15%;
 
@@ -67,7 +67,7 @@ All colors MUST be HSL.
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: transparent; /* Remove sidebar borders */
     --sidebar-ring: 220 91% 15%;
   }
 
@@ -107,7 +107,7 @@ All colors MUST be HSL.
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
+    --border: transparent; /* Remove all borders */
     --input: 214.3 31.8% 91.4%;
     --ring: 220 91% 15%;
     
@@ -117,43 +117,45 @@ All colors MUST be HSL.
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: transparent; /* Remove sidebar borders */
     --sidebar-ring: 220 91% 15%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border: none !important;
+    outline: none !important;
   }
 
   body {
     @apply bg-background text-foreground;
-    background: hsl(0 0% 100%);
+    background: hsl(0 0% 100%) !important;
+    background-image: none !important;
     min-height: 100vh;
-    /* Remove any grid backgrounds */
-    background-image: none;
   }
 
-  /* Remove quantum particle effects */
-  .quantum-particles {
-    display: none;
-  }
-
+  /* Remove ALL grid patterns and lines */
+  .grid-bg,
+  .grid-pattern,
+  .quantum-particles,
   .quantum-particle {
-    display: none;
+    display: none !important;
   }
 
-  /* Remove any grid patterns */
-  .grid-bg {
-    display: none;
+  /* Force remove borders from ALL elements */
+  *,
+  *::before,
+  *::after {
+    border: none !important;
+    outline: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
   }
 
-  .grid-pattern {
-    display: none;
-  }
-
-  /* Ensure no grid lines on containers */
+  /* Specific grid and container overrides */
   .container, 
   .grid,
   .grid-cols-1,
@@ -161,15 +163,50 @@ All colors MUST be HSL.
   .grid-cols-3,
   .grid-cols-4,
   .grid-cols-5,
-  .grid-cols-6 {
+  .grid-cols-6,
+  .grid-cols-7,
+  .grid-cols-8,
+  .grid-cols-9,
+  .grid-cols-10,
+  .grid-cols-11,
+  .grid-cols-12,
+  .grid > *,
+  .flex,
+  .flex > *,
+  section,
+  div,
+  article,
+  main,
+  header,
+  nav,
+  footer {
     border: none !important;
     outline: none !important;
+    box-shadow: none !important;
   }
 
-  /* Remove borders from grid items */
-  .grid > * {
+  /* Remove table borders */
+  table,
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  td,
+  th {
     border: none !important;
-    outline: none !important;
+    border-collapse: collapse !important;
+  }
+
+  /* Remove card borders */
+  .card {
+    border: none !important;
+  }
+
+  /* Remove input borders unless specifically styled */
+  input:not(.styled-input),
+  textarea:not(.styled-input),
+  select:not(.styled-input) {
+    border: 1px solid hsl(220 91% 15% / 0.2) !important;
   }
 }
 
@@ -191,7 +228,7 @@ All colors MUST be HSL.
 .glass-morphism {
   background: hsl(220 91% 15% / 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid hsl(220 91% 25% / 0.3);
+  border: none !important;
 }
 
 /* Quantum icon styles */
@@ -214,23 +251,10 @@ All colors MUST be HSL.
   max-width: 64px;
 }
 
-/* Clean card styles without borders */
+/* Clean card styles without any borders */
 .card-clean {
   background: hsl(0 0% 100%);
-  border: none;
+  border: none !important;
   box-shadow: var(--shadow-elegant);
   border-radius: var(--radius);
-}
-
-/* Remove debug borders */
-* {
-  border: none !important;
-  outline: none !important;
-}
-
-/* Ensure clean layout without grid lines */
-.no-grid * {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
 }
