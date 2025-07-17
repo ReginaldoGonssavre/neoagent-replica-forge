@@ -1,23 +1,21 @@
 
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Stats } from "@/components/Stats";
 import { Features } from "@/components/Features";
+import { AdvancedAISection } from "@/components/AdvancedAISection";
+import { AICircleSection } from "@/components/AICircleSection";
+import { Stats } from "@/components/Stats";
 import { Footer } from "@/components/Footer";
-import { useEffect } from "react";
 
 const Index = () => {
-  useEffect(() => {
-    // Remove dark mode for white theme
-    document.documentElement.classList.remove('dark');
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       <Hero />
-      <Stats />
       <Features />
+      <AdvancedAISection />
+      <AICircleSection />
+      <Stats />
       <Footer />
     </div>
   );

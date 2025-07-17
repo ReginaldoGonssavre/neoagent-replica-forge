@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,10 +14,11 @@ import {
   Network,
   MessageSquare,
   Sparkles,
-  Camera,
-  Cpu,
   Target,
-  Layers
+  Layers,
+  Search,
+  Database,
+  Cpu
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,6 +26,7 @@ interface LLMResponse {
   type: string;
   response: string;
   steps?: string[];
+  architecture?: string;
 }
 
 export default function AIAgent() {
@@ -32,6 +34,7 @@ export default function AIAgent() {
   const [responses, setResponses] = useState<LLMResponse[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
+  const [agentMode, setAgentMode] = useState<"single" | "multi" | "rag">("single");
 
   const models = [
     {
@@ -41,7 +44,8 @@ export default function AIAgent() {
       description: "Predicts next words to generate fluent text, answer questions, chat, and complete tasks from prompts.",
       icon: Brain,
       color: "bg-blue-500",
-      features: ["Pretrained massive text corpus", "Encoder-decoder prompts", "Transformer layers to produce hidden states"]
+      features: ["Pretrained massive text corpus", "Encoder-decoder prompts", "Transformer layers to produce hidden states"],
+      architecture: "Transformer-based autoregressive model"
     },
     {
       id: "moe",
@@ -50,7 +54,8 @@ export default function AIAgent() {
       description: "Activates select expert networks per input for efficient understanding and generation.",
       icon: Network,
       color: "bg-purple-500",
-      features: ["Token routing through gating network", "Tokenize and embed input text", "Gating network selects 'top-k' experts per token"]
+      features: ["Token routing through gating network", "Tokenize and embed input text", "Gating network selects 'top-k' experts per token"],
+      architecture: "Sparse expert selection with routing network"
     },
     {
       id: "lrm",
@@ -59,16 +64,18 @@ export default function AIAgent() {
       description: "Performs multi-step reasoning and planning for more consistent, explainable AI responses.",
       icon: Target,
       color: "bg-green-500",
-      features: ["Tokenize input and context", "Generate initial chain-of-thought reasoning steps internally", "Evaluate/rank possible response paths (self-reflection)"]
+      features: ["Tokenize input and context", "Generate initial chain-of-thought reasoning steps internally", "Evaluate/rank possible response paths (self-reflection)"],
+      architecture: "Chain-of-thought with self-reflection capabilities"
     },
     {
       id: "vlm",
       name: "VLM",
-      subtitle: "Vision Action Model",
+      subtitle: "Vision Language Model",
       description: "Understands images and text jointly to answer questions, describe, or generate multimodal content.",
       icon: Eye,
       color: "bg-orange-500",
-      features: ["Encode image", "Tokenize any text input", "Fuse vision & text modalities through transformer layers"]
+      features: ["Encode image", "Tokenize any text input", "Fuse vision & text modalities through transformer layers"],
+      architecture: "Multimodal transformer with vision encoder"
     },
     {
       id: "slm",
@@ -77,7 +84,8 @@ export default function AIAgent() {
       description: "Compact model for efficient on-device language tasks like generation, summarization, or classification.",
       icon: Cpu,
       color: "bg-teal-500",
-      features: ["Tokenize input", "Embed tokens into lower-dimensional space", "Process through fewer transformer layers"]
+      features: ["Tokenize input", "Embed tokens into lower-dimensional space", "Process through fewer transformer layers"],
+      architecture: "Compressed transformer for edge deployment"
     },
     {
       id: "lam",
@@ -86,7 +94,29 @@ export default function AIAgent() {
       description: "Plans and executes structured actions or API calls from prompts for autonomous task completion.",
       icon: Cog,
       color: "bg-red-500",
-      features: ["Task description and environment state", "Tokenize action description and environment", "Plan sequence of actions (CoT planning)"]
+      features: ["Task description and environment state", "Tokenize action description and environment", "Plan sequence of actions (CoT planning)"],
+      architecture: "Action-oriented model with tool integration"
+    }
+  ];
+
+  const agentModes = [
+    {
+      id: "single",
+      name: "Single Agent",
+      description: "Query → Agent → Output",
+      icon: MessageSquare
+    },
+    {
+      id: "multi", 
+      name: "Multi-Agent",
+      description: "Meta-Agent coordinating specialists",
+      icon: Network
+    },
+    {
+      id: "rag",
+      name: "Agentic RAG",
+      description: "RAG + CAG Integration",
+      icon: Search
     }
   ];
 
@@ -108,103 +138,80 @@ export default function AIAgent() {
     }
   };
 
-  const processWithGPT = (text: string): LLMResponse => {
-    return {
-      type: "GPT",
-      response: `Analisando sua solicitação: "${text}". Como um modelo de linguagem generativo, posso ajudar com texto, conversação e tarefas diversas. Esta é uma resposta simulada demonstrando capacidades de GPT.`
+  const processWithModel = (text: string, modelId: string, agentType: string): LLMResponse => {
+    const model = models.find(m => m.id === modelId);
+    const baseResponse = {
+      type: model?.name || "GPT",
+      response: "",
+      architecture: model?.architecture || "",
+      steps: []
     };
-  };
 
-  const processWithMoE = (text: string): LLMResponse => {
-    return {
-      type: "MoE",
-      response: `Ativando especialistas relevantes para: "${text}". Sistema MoE selecionou 3 de 8 especialistas para processar esta entrada de forma eficiente.`,
-      steps: ["🔀 Roteamento de tokens", "👥 Seleção de especialistas", "🔄 Agregação de resultados"]
-    };
-  };
-
-  const processWithLRM = (text: string): LLMResponse => {
-    return {
-      type: "LRM",
-      response: `Processamento multi-etapas para: "${text}". Aplicando raciocínio estruturado e auto-reflexão.`,
-      steps: [
-        "🧠 Analisando contexto da entrada",
-        "🔍 Quebrando problema em subtarefas", 
-        "🧩 Planejando sequência de raciocínio",
-        "✅ Gerando resposta explicável"
-      ]
-    };
-  };
-
-  const processWithVLM = (text: string): LLMResponse => {
-    return {
-      type: "VLM",
-      response: `Módulo de visão ativado para: "${text}". Capacidade de processamento multimodal (texto + imagem) disponível.`,
-      steps: ["📷 Codificação de imagem", "📝 Tokenização de texto", "🔗 Fusão multimodal"]
-    };
-  };
-
-  const processWithLAM = (text: string): LLMResponse => {
-    const actions = [];
-    if (text.toLowerCase().includes("ligar")) {
-      actions.push("🚜 Enviando comando para ligar equipamento");
+    switch (modelId) {
+      case "gpt":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Analisando: "${text}". Resposta gerada usando arquitetura transformer com predição sequencial de tokens.`,
+          steps: ["🔤 Tokenização", "🧠 Processamento transformer", "📝 Geração sequencial"]
+        };
+      
+      case "moe":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Ativando especialistas para: "${text}". Sistema MoE selecionou 3 de 8 especialistas relevantes.`,
+          steps: ["🔀 Roteamento de tokens", "👥 Seleção de especialistas", "🔄 Agregação de resultados"]
+        };
+      
+      case "lrm":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Processamento multi-etapas para: "${text}". Aplicando raciocínio estruturado com auto-reflexão.`,
+          steps: [
+            "🧠 Análise inicial do contexto",
+            "🔍 Decomposição em subtarefas", 
+            "🧩 Cadeia de raciocínio",
+            "🔄 Auto-reflexão e validação",
+            "✅ Resposta explicável"
+          ]
+        };
+      
+      case "vlm":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Processamento multimodal para: "${text}". Integrando capacidades de visão e linguagem.`,
+          steps: ["📷 Codificação visual", "📝 Tokenização textual", "🔗 Fusão multimodal", "🎯 Resposta integrada"]
+        };
+      
+      case "lam":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Planejamento de ações para: "${text}". Preparando execução autônoma.`,
+          steps: ["📋 Análise de tarefas", "🎯 Planejamento de ações", "🔧 Integração de ferramentas", "⚡ Execução autônoma"]
+        };
+      
+      case "slm":
+        return {
+          ...baseResponse,
+          response: `[${agentType.toUpperCase()}] Processamento eficiente para: "${text}". Modelo compacto otimizado para edge computing.`,
+          steps: ["⚡ Tokenização rápida", "🔄 Processamento leve", "📱 Resposta otimizada"]
+        };
+      
+      default:
+        return baseResponse;
     }
-    if (text.toLowerCase().includes("executar")) {
-      actions.push("⚙️ Executando sequência de ações planejadas");
-    }
-    if (actions.length === 0) {
-      actions.push("📋 Planejando ações estruturadas");
-    }
-
-    return {
-      type: "LAM",
-      response: `Modelo de ação ativado para: "${text}". Executando comandos e interações com APIs.`,
-      steps: actions
-    };
-  };
-
-  const processWithSLM = (text: string): LLMResponse => {
-    return {
-      type: "SLM",
-      response: `Processamento eficiente e compacto para: "${text}". Modelo otimizado para velocidade e recursos limitados.`,
-      steps: ["⚡ Tokenização rápida", "🔄 Processamento leve", "📱 Resposta otimizada"]
-    };
   };
 
   const processInput = async (text: string, modelType?: string) => {
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simula processamento
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       const taskType = modelType || classifyTask(text);
-      let response: LLMResponse;
-
-      switch (taskType) {
-        case "gpt":
-          response = processWithGPT(text);
-          break;
-        case "moe":
-          response = processWithMoE(text);
-          break;
-        case "lrm":
-          response = processWithLRM(text);
-          break;
-        case "vlm":
-          response = processWithVLM(text);
-          break;
-        case "lam":
-          response = processWithLAM(text);
-          break;
-        case "slm":
-          response = processWithSLM(text);
-          break;
-        default:
-          response = processWithGPT(text);
-      }
+      const response = processWithModel(text, taskType, agentMode);
 
       setResponses(prev => [...prev, response]);
-      toast.success(`Processado com ${response.type}`);
+      toast.success(`Processado com ${response.type} (${agentMode})`);
     } catch (error) {
       toast.error("Erro no processamento");
     } finally {
@@ -232,16 +239,34 @@ export default function AIAgent() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-gradient-primary text-white py-8">
+      <div className="bg-gradient-primary text-white py-12">
         <div className="container mx-auto px-6">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <Bot className="w-7 h-7 text-white" />
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+              <Bot className="w-9 h-9 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Agente IA Integrado</h1>
-              <p className="text-white/80">6 Tipos de Modelos de Linguagem</p>
+              <h1 className="text-4xl font-bold">Agente IA Avançado</h1>
+              <p className="text-white/80 text-lg">6 Modelos + 3 Arquiteturas Agênticas</p>
             </div>
+          </div>
+
+          {/* Agent Mode Selector */}
+          <div className="flex flex-wrap gap-3">
+            {agentModes.map((mode) => {
+              const IconComponent = mode.icon;
+              return (
+                <Button
+                  key={mode.id}
+                  variant={agentMode === mode.id ? "secondary" : "ghost"}
+                  onClick={() => setAgentMode(mode.id as any)}
+                  className="text-white hover:bg-white/20"
+                >
+                  <IconComponent className="w-4 h-4 mr-2" />
+                  {mode.name}
+                </Button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -253,13 +278,14 @@ export default function AIAgent() {
             <div className="flex items-center space-x-2 mb-4">
               <MessageSquare className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold">Digite sua solicitação</h2>
+              <Badge variant="outline">{agentMode} mode</Badge>
             </div>
             
             <Textarea
-              placeholder="Ex: 'Analise esta imagem', 'Planeje passo a passo', 'Execute uma ação', etc."
+              placeholder="Ex: 'Analise esta imagem', 'Planeje passo a passo uma estratégia', 'Execute uma integração de API', etc."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="min-h-[100px]"
+              className="min-h-[120px]"
             />
             
             <div className="flex space-x-2">
@@ -277,7 +303,7 @@ export default function AIAgent() {
                 onClick={() => setResponses([])}
                 disabled={responses.length === 0}
               >
-                Limpar Respostas
+                Limpar Histórico
               </Button>
             </div>
           </div>
@@ -290,7 +316,7 @@ export default function AIAgent() {
             return (
               <Card 
                 key={model.id}
-                className="p-6 hover:shadow-lg transition-all cursor-pointer border-2 hover:border-primary/50"
+                className="p-6 hover:shadow-lg transition-all cursor-pointer hover:scale-105"
                 onClick={() => handleModelClick(model.id)}
               >
                 <div className="flex items-start space-x-4 mb-4">
@@ -305,19 +331,23 @@ export default function AIAgent() {
                 
                 <p className="text-gray-700 text-sm mb-4">{model.description}</p>
                 
-                <div className="space-y-2">
-                  {model.features.map((feature, index) => (
+                <div className="space-y-2 mb-4">
+                  {model.features.slice(0, 2).map((feature, index) => (
                     <div key={index} className="flex items-center text-xs text-gray-600">
                       <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
                       {feature}
                     </div>
                   ))}
                 </div>
+
+                <Badge variant="secondary" className="text-xs mb-3">
+                  {model.architecture}
+                </Badge>
                 
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="w-full mt-4 text-primary hover:bg-primary/10"
+                  className="w-full text-primary hover:bg-primary/10"
                   disabled={!input.trim() || loading}
                 >
                   Usar {model.name}
@@ -329,32 +359,45 @@ export default function AIAgent() {
 
         {/* Responses Section */}
         {responses.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-primary mb-4">Respostas do Agente</h2>
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-primary mb-4 flex items-center">
+              <Database className="w-6 h-6 mr-2" />
+              Respostas do Agente ({responses.length})
+            </h2>
             
             {responses.map((response, index) => (
-              <Card key={index} className="p-6">
-                <div className="flex items-center space-x-2 mb-4">
-                  <Badge variant="secondary" className="bg-gradient-primary text-white">
-                    {response.type}
-                  </Badge>
-                  <span className="text-sm text-gray-500">
-                    Resposta #{responses.length - index}
-                  </span>
+              <Card key={index} className="p-6 hover:shadow-lg transition-all">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <Badge variant="secondary" className="bg-gradient-primary text-white">
+                      {response.type}
+                    </Badge>
+                    <Badge variant="outline">
+                      Resposta #{responses.length - index}
+                    </Badge>
+                    {response.architecture && (
+                      <Badge variant="outline" className="text-xs">
+                        {response.architecture}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
                 
-                <p className="text-gray-800 mb-4">{response.response}</p>
+                <p className="text-gray-800 mb-4 font-medium">{response.response}</p>
                 
                 {response.steps && (
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-primary mb-2">Etapas de Processamento:</h4>
-                    <div className="space-y-2">
+                    <h4 className="font-semibold text-primary mb-3 flex items-center">
+                      <Layers className="w-4 h-4 mr-2" />
+                      Pipeline de Processamento:
+                    </h4>
+                    <div className="space-y-3">
                       {response.steps.map((step, stepIndex) => (
                         <div key={stepIndex} className="flex items-center text-sm text-gray-700">
-                          <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mr-3 text-xs font-bold text-primary">
+                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3 text-xs font-bold text-primary">
                             {stepIndex + 1}
                           </div>
-                          {step}
+                          <span className="flex-1">{step}</span>
                         </div>
                       ))}
                     </div>
@@ -366,10 +409,13 @@ export default function AIAgent() {
         )}
 
         {loading && (
-          <Card className="p-6">
+          <Card className="p-8">
             <div className="flex items-center justify-center space-x-4">
-              <Zap className="w-6 h-6 animate-spin text-primary" />
-              <span className="text-primary font-medium">Processando com agente de IA...</span>
+              <Zap className="w-8 h-8 animate-spin text-primary" />
+              <div className="text-center">
+                <p className="text-primary font-medium text-lg">Processando com agente {agentMode}...</p>
+                <p className="text-gray-500 text-sm">Aplicando arquitetura avançada de IA</p>
+              </div>
             </div>
           </Card>
         )}
